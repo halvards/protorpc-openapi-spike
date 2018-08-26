@@ -47,7 +47,7 @@ def api(name,
         issuers=None,
         namespace=None,
         api_key_required=None,
-        base_path='/_ah/api',
+        base_path='/_ah/api/',
         limit_definitions=None,
         use_request_uri=None):
     """Class decorator for API service.
