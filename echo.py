@@ -27,7 +27,7 @@ class EchoResponse(messages.Message):
 
 @endpoints.api(name='echo',
                version='v1',
-               base_path='/api')
+               base_path='/echo')
 class EchoApi(remote.Service):
 
     @endpoints.method(request_message=EchoRequest,

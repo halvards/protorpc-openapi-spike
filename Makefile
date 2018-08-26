@@ -16,12 +16,19 @@ ifndef GOOGLE_CLOUD_PROJECT
   GOOGLE_CLOUD_PROJECT := $(shell gcloud config list --format 'value(core.project)')
 endif
 
-.PHONY: all generate-api deploy-api deploy-service virtualenv local
+ifndef PORT
+  PORT := 8080
+endif
 
-all: generate-api deploy-api deploy-service
+.PHONY: all generate-api generate-discovery deploy-api deploy-service virtualenv local
+
+all: generate-api generate-discovery deploy-api deploy-service
 
 generate-api:
 	python env/lib/python2.7/site-packages/endpoints/endpointscfg.py get_openapi_spec echo.EchoApi --hostname ${GOOGLE_CLOUD_PROJECT}.appspot.com --x-google-api-name
+
+generate-discovery:
+	python env/lib/python2.7/site-packages/endpoints/endpointscfg.py get_discovery_doc echo.EchoApi --hostname ${GOOGLE_CLOUD_PROJECT}.appspot.com --output static
 
 deploy-api:
 	gcloud endpoints services deploy echov1openapi.json
@@ -33,4 +40,4 @@ virtualenv:
 	virtualenv -p python2.7 env
 
 local:
-	dev_appserver.py --port 8080 app.yaml
+	dev_appserver.py --port ${PORT} app.yaml

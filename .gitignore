@@ -86,3 +86,6 @@ venv.bak/
 
 # Generated OpenAPI specs
 *openapi.json
+
+# Generated discovery documents
+*.discovery

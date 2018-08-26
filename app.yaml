@@ -14,7 +14,7 @@
 
 # https://cloud.google.com/appengine/docs/standard/python/config/appref
 
-# service: echo
+service: echorpc
 runtime: python27
 threadsafe: true
 api_version: 1
@@ -24,8 +24,24 @@ builtins:
 - appstats: on
 
 handlers:
-- url: /api/echo.*
+- url: /echo/static/proxy.html
+  static_files: static/proxy.html
+  upload: static/proxy.html
+  secure: always
+- url: /echo/discovery/v1/apis/echo/v1/rest
+  static_files: static/echo-v1.discovery
+  upload: static/echo-v1.discovery
+  mime_type: application/json
+  secure: always
+- url: /echo/echo/.*
   script: echo.api
+  secure: always
+- url: /
+  static_files: app/index.html
+  upload: app/index.html
+  secure: always
+- url: /*
+  static_dir: app
   secure: always
 
 # https://cloud.google.com/appengine/docs/standard/python/tools/built-in-libraries-27
