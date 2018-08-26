@@ -93,8 +93,8 @@ def api_server(api_services):
     """
     services = []
     for service_class in api_services:
-        service_path = '{}/{}/{}'.format(service_class.wrapper_api_base_path,
-                                         service_class.wrapper_api_name,
-                                         service_class.wrapper_api_version)
+        service_path = '{}{}/{}'.format(service_class.wrapper_api_base_path,
+                                        service_class.wrapper_api_name,
+                                        service_class.wrapper_api_version)
         services.append((service_path, service_class))
     return service.service_mappings(services)

@@ -27,8 +27,9 @@ class EchoResponse(messages.Message):
 
 @endpoints.api(name='echo',
                version='v1',
-               base_path='/echo')
+               base_path='/echo/')
 class EchoApi(remote.Service):
+    """base_path _must_ begin and end with '/'"""
 
     @endpoints.method(request_message=EchoRequest,
                       response_message=EchoResponse,
